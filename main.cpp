@@ -133,21 +133,17 @@ public:
 
     // Overloading the [] operator to access the coefficients of the numerator
     // and denominator
-    int operator[](int index, bool isDen) {
-        if (isDen){
-            if (index >= 0 && index < coefficientsDen.size()){
-                return coefficientsDen[index];
-            }else{
-                cout << "Index out of range" << endl;
-            }
-        }else{
-            if (index >= 0 && index < coefficientsNum.size()){
-                return coefficientsNum[index];
-            }else{
-                cout << "Index out of range" << endl;
-            }
+    void operator[](int index) {
+        if (index >= 0 && index < coefficientsNum.size()) {
+            cout << "Numerator: " << coefficientsNum[index] << endl;
+        } else {
+            cout << "Index outside the array" << endl;
         }
-
+        if (index >= 0 && index < coefficientsDen.size()) {
+            cout << "Denominator: " << coefficientsDen[index] << endl;
+        } else {
+            cout << "Index outside the array" << endl;
+        }
     }
 
     // Overloading the == operator to compare two polynomial fraction
@@ -163,10 +159,10 @@ public:
     }
 
     // Overloading the >> operator to input a polynomial fraction
-    friend istream& operator>>(istream& input, rationalFraction& fraction) {
+    friend istream &operator>>(istream &input, rationalFraction &fraction) {
         cout << "Enter coefficients for numerator: ";
         int num;
-        vector<int>& numCoeffs = fraction.coefficientsNum;
+        vector<int> &numCoeffs = fraction.coefficientsNum;
         numCoeffs.pop_back();
         while (input >> num) {
             numCoeffs.push_back(num);
@@ -176,7 +172,7 @@ public:
         }
 
         cout << "Enter coefficients for denominator: ";
-        vector<int>& denCoeffs = fraction.coefficientsDen;
+        vector<int> &denCoeffs = fraction.coefficientsDen;
         denCoeffs.pop_back();
         while (input >> num) {
             denCoeffs.push_back(num);
@@ -191,8 +187,8 @@ public:
     }
 
     // Overloading the << operator to output a polynomial fraction
-    friend ostream& operator<<(ostream& output,
-            const rationalFraction& fraction) {
+    friend ostream &operator<<(ostream &output,
+            const rationalFraction &fraction) {
         output << "(";
         for (int i = fraction.coefficientsNum.size() - 1; i >= 0; --i) {
             if (fraction.coefficientsNum[i] != 0) {
@@ -259,14 +255,20 @@ int main() {
     cout << "Addition Result: " << resultAdd;
     rationalFraction resultMultiply = poly1 * poly2;
     cout << "Multiplication Result: " << resultMultiply;
-    if (poly1 == poly2){
+    cout << "Specify the area code of the number you want to receive: ";
+    int index;
+    cin >> index;
+    poly1[index];
+    cout << "Operation overload ==:" << endl;
+    if (poly1 == poly2) {
         cout << "Fractions are equal" << endl;
-    }else{
+    } else {
         cout << "Fractions are not equal" << endl;
     }
-    if(!(poly1 != poly2)){
+    cout << "Operation overload !=:" << endl;
+    if (!(poly1 != poly2)) {
         cout << "Fractions are equal" << endl;
-    }else{
+    } else {
         cout << "Fractions are not equal" << endl;
     }
     return 0;

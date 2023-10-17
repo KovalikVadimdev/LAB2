@@ -156,8 +156,7 @@ CMakeFiles/PZ_2.dir/main.cpp.obj: C:/Users/Vadim/CLionProjects/LAB2/main.cpp \
   C:/Program\ Files/JetBrains/CLion\ 2023.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_uninitialized.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_vector.h \
   C:/Program\ Files/JetBrains/CLion\ 2023.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_bvector.h \
-  C:/Program\ Files/JetBrains/CLion\ 2023.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/vector.tcc \
-  C:/Program\ Files/JetBrains/CLion\ 2023.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/limits
+  C:/Program\ Files/JetBrains/CLion\ 2023.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/vector.tcc
 
 
 C:/Users/Vadim/CLionProjects/LAB2/main.cpp:
@@ -471,5 +470,3 @@ C:/Program\ Files/JetBrains/CLion\ 2023.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32
 C:/Program\ Files/JetBrains/CLion\ 2023.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_vector.h:
 
 C:/Program\ Files/JetBrains/CLion\ 2023.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_bvector.h:
-
-C:/Program\ Files/JetBrains/CLion\ 2023.1.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/limits:
