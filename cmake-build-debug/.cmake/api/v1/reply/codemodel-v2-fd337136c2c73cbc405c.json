@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Kovalik Vadim/CLionProjects/PZ_2/cmake-build-debug",
-		"source" : "C:/Users/Kovalik Vadim/CLionProjects/PZ_2"
+		"build" : "C:/Users/Vadim/CLionProjects/LAB2/cmake-build-debug",
+		"source" : "C:/Users/Vadim/CLionProjects/LAB2"
 	},
 	"version" : 
 	{

@@ -24,17 +24,7 @@ public:
         fractionSimplification();
     }
 
-    // Getter a value of coefficientsNum
-    vector<int> getCoefficientsNum() const {
-        return coefficientsNum;
-    }
-
-    // Getter a value of coefficientsDen
-    vector<int> getCoefficientsDen() const {
-        return coefficientsDen;
-    }
-
-    // Function for adding two polynomial fractional expressions
+    // Overloading the addition operation to add two polynomial fractions
     rationalFraction operator+(const rationalFraction &other) const {
         // Creating a vector for the numerator and denominator
         vector<int> resultNum1(coefficientsNum.size()
@@ -73,7 +63,8 @@ public:
         return {resultNum, resultDen};
     }
 
-    // Function for multiplying two polynomial fractional expressions
+    // Overloading the multiplication operation to multiply two polynomial
+    // fractions
     rationalFraction operator*(const rationalFraction &other) const {
         // Creating a vector for the numerator and denominator
         vector<int> resultNum(coefficientsNum.size()
@@ -96,6 +87,7 @@ public:
         return {resultNum, resultDen};
     }
 
+    // Function for simplifying a fraction
     void fractionSimplification() {
         // Assigning a value of result
         int result = 0;
@@ -139,232 +131,143 @@ public:
         }
     }
 
-    // Function for comparing two polynomial fractional expressions
+    // Overloading the [] operator to access the coefficients of the numerator
+    // and denominator
+    int operator[](int index, bool isDen) {
+        if (isDen){
+            if (index >= 0 && index < coefficientsDen.size()){
+                return coefficientsDen[index];
+            }else{
+                cout << "Index out of range" << endl;
+            }
+        }else{
+            if (index >= 0 && index < coefficientsNum.size()){
+                return coefficientsNum[index];
+            }else{
+                cout << "Index out of range" << endl;
+            }
+        }
+
+    }
+
+    // Overloading the == operator to compare two polynomial fraction
     bool operator==(const rationalFraction &other) const {
         return (coefficientsNum == other.coefficientsNum) && (coefficientsDen
-                                                              == other.coefficientsDen);
+        == other.coefficientsDen);
+    }
+
+    // Overloading the != operator to compare two polynomial fractions
+    bool operator!=(const rationalFraction &other) const {
+        return (coefficientsNum != other.coefficientsNum) && (coefficientsDen
+        != other.coefficientsDen);
+    }
+
+    // Overloading the >> operator to input a polynomial fraction
+    friend istream& operator>>(istream& input, rationalFraction& fraction) {
+        cout << "Enter coefficients for numerator: ";
+        int num;
+        vector<int>& numCoeffs = fraction.coefficientsNum;
+        numCoeffs.pop_back();
+        while (input >> num) {
+            numCoeffs.push_back(num);
+            if (cin.get() == '\n') {
+                break;
+            }
+        }
+
+        cout << "Enter coefficients for denominator: ";
+        vector<int>& denCoeffs = fraction.coefficientsDen;
+        denCoeffs.pop_back();
+        while (input >> num) {
+            denCoeffs.push_back(num);
+            if (cin.get() == '\n') {
+                break;
+            }
+        }
+
+        fraction.fractionSimplification();
+
+        return input;
+    }
+
+    // Overloading the << operator to output a polynomial fraction
+    friend ostream& operator<<(ostream& output,
+            const rationalFraction& fraction) {
+        output << "(";
+        for (int i = fraction.coefficientsNum.size() - 1; i >= 0; --i) {
+            if (fraction.coefficientsNum[i] != 0) {
+                if (i < fraction.coefficientsNum.size() - 1) {
+                    if (fraction.coefficientsNum[i] > 0) {
+                        output << " + ";
+                    } else {
+                        output << " - ";
+                    }
+                }
+                int coeff = abs(fraction.coefficientsNum[i]);
+                if (i > 0) {
+                    if (coeff == 1) {
+                        output << "x^" << i;
+                    } else if (i == 1) {
+                        output << coeff << "x";
+                    } else {
+                        output << coeff << "x^" << i;
+                    }
+                } else {
+                    output << coeff;
+                }
+            }
+        }
+        output << ") / (";
+        for (int i = fraction.coefficientsDen.size() - 1; i >= 0; --i) {
+            if (fraction.coefficientsDen[i] != 0) {
+                if (i < fraction.coefficientsDen.size() - 1) {
+                    if (fraction.coefficientsDen[i] > 0)
+                        output << " + ";
+                    else
+                        output << " - ";
+                }
+                int coeff = abs(fraction.coefficientsDen[i]);
+                if (i > 0) {
+                    if (coeff == 1) {
+                        output << "x^" << i;
+                    } else if (i == 1) {
+                        output << coeff << "x";
+                    } else {
+                        output << coeff << "x^" << i;
+                    }
+                } else {
+                    output << coeff;
+                }
+            }
+        }
+        output << ")" << endl;
+
+        return output;
     }
 };
 
 int main() {
-    // Creating vectors for the first fraction
-    vector<int> numerator_first = {-5, 3, 2};
-    vector<int> denominator_first = {-4, 0, 1};
-    // Creating vectors for the second fraction
-    vector<int> numerator_second = {-15, 9, 6};
-    vector<int> denominator_second = {-12, 0, 3};
-    // Creating objects of the class rationalFraction
-    rationalFraction poly1(numerator_first, denominator_first);
-    rationalFraction poly2(numerator_second, denominator_second);
-    // Outputting the input data
-    cout << "Input data first fraction: (";
-    for (int i = numerator_first.size() - 1; i >= 0; --i) {
-        if (numerator_first[i] != 0) {
-            if (i < numerator_first.size() - 1) {
-                if (numerator_first[i] > 0) {
-                    cout << " + ";
-                } else {
-                    cout << " - ";
-                }
-            }
-            int coeff = abs(numerator_first[i]);
-            if (i > 0) {
-                if (coeff == 1) {
-                    cout << "x^" << i;
-                } else if (i == 1) {
-                    cout << coeff << "x";
-                } else {
-                    cout << coeff << "x^" << i;
-                }
-            } else {
-                cout << coeff;
-            }
-        }
-    }
-    cout << ") / (";
-    for (int i = denominator_first.size() - 1; i >= 0; --i) {
-        if (denominator_first[i] != 0) {
-            if (i < denominator_first.size() - 1) {
-                if (denominator_first[i] > 0)
-                    cout << " + ";
-                else
-                    cout << " - ";
-            }
-            int coeff = abs(denominator_first[i]);
-            if (i > 0) {
-                if (coeff == 1) {
-                    cout << "x^" << i;
-                } else if (i == 1) {
-                    cout << coeff << "x";
-                } else {
-                    cout << coeff << "x^" << i;
-                }
-            } else {
-                cout << coeff;
-            }
-        }
-    }
-    cout << ")" << endl;
-    cout << "Input data second fraction: (";
-    for (int i = numerator_second.size() - 1; i >= 0; --i) {
-        if (numerator_second[i] != 0) {
-            if (i < numerator_second.size() - 1) {
-                if (numerator_second[i] > 0) {
-                    cout << " + ";
-                } else {
-                    cout << " - ";
-                }
-            }
-            int coeff = abs(numerator_second[i]);
-            if (i > 0) {
-                if (coeff == 1) {
-                    cout << "x^" << i;
-                } else if (i == 1) {
-                    cout << coeff << "x";
-                } else {
-                    cout << coeff << "x^" << i;
-                }
-            } else {
-                cout << coeff;
-            }
-        }
-    }
-    cout << ") / (";
-    for (int i = denominator_second.size() - 1; i >= 0; --i) {
-        if (denominator_second[i] != 0) {
-            if (i < denominator_second.size() - 1) {
-                if (denominator_second[i] > 0)
-                    cout << " + ";
-                else
-                    cout << " - ";
-            }
-            int coeff = abs(denominator_second[i]);
-            if (i > 0) {
-                if (coeff == 1) {
-                    cout << "x^" << i;
-                } else if (i == 1) {
-                    cout << coeff << "x";
-                } else {
-                    cout << coeff << "x^" << i;
-                }
-            } else {
-                cout << coeff;
-            }
-        }
-    }
-    cout << ")" << endl;
-    // Outputting the result of adding two polynomial fractional expressions
+    cout << "Enter first fraction" << endl;
+    rationalFraction poly1;
+    cin >> poly1;
+    cout << "Enter second fraction" << endl;
+    rationalFraction poly2;
+    cin >> poly2;
+    cout << "First fraction: " << poly1;
+    cout << "Second fraction: " << poly2;
     rationalFraction resultAdd = poly1 + poly2;
-    cout << "Addition Result: (";
-    const vector<int> &resultAddNum = resultAdd.getCoefficientsNum();
-    const vector<int> &resultAddDen = resultAdd.getCoefficientsDen();
-    for (int i = resultAddNum.size() - 1; i >= 0; --i) {
-        if (resultAddNum[i] != 0) {
-            if (i < resultAddNum.size() - 1) {
-                if (resultAddNum[i] > 0) {
-                    cout << " + ";
-                } else {
-                    cout << " - ";
-                }
-            }
-            int coeff = abs(resultAddNum[i]);
-            if (i > 0) {
-                if (coeff == 1) {
-                    cout << "x^" << i;
-                } else if (i == 1) {
-                    cout << coeff << "x";
-                } else {
-                    cout << coeff << "x^" << i;
-                }
-            } else {
-                cout << coeff;
-            }
-        }
-    }
-    cout << ") / (";
-    for (int i = resultAddDen.size() - 1; i >= 0; --i) {
-        if (resultAddDen[i] != 0) {
-            if (i < resultAddDen.size() - 1) {
-                if (resultAddDen[i] > 0)
-                    cout << " + ";
-                else
-                    cout << " - ";
-            }
-            int coeff = abs(resultAddDen[i]);
-            if (i > 0) {
-                if (coeff == 1) {
-                    cout << "x^" << i;
-                } else if (i == 1) {
-                    cout << coeff << "x";
-                } else {
-                    cout << coeff << "x^" << i;
-                }
-            } else {
-                cout << coeff;
-            }
-        }
-    }
-    cout << ")" << endl;
-    // Outputting the result of multiplying two polynomial fractional
-    // expressions
+    cout << "Addition Result: " << resultAdd;
     rationalFraction resultMultiply = poly1 * poly2;
-    cout << "Multiplication Result: (";
-    const vector<int> &resultMultiplyNum =
-            resultMultiply.getCoefficientsNum();
-    const vector<int> &resultMultiplyDen =
-            resultMultiply.getCoefficientsDen();
-    for (int i = resultMultiplyNum.size() - 1; i >= 0; --i) {
-        if (resultMultiplyNum[i] != 0) {
-            if (i < resultMultiplyNum.size() - 1) {
-                if (resultMultiplyNum[i] > 0)
-                    cout << " + ";
-                else
-                    cout << " - ";
-            }
-            int coeff = abs(resultMultiplyNum[i]);
-            if (i > 0) {
-                if (coeff == 1) {
-                    cout << "x^" << i;
-                } else if (i == 1) {
-                    cout << coeff << "x";
-                } else {
-                    cout << coeff << "x^" << i;
-                }
-            } else {
-                cout << coeff;
-            }
-        }
+    cout << "Multiplication Result: " << resultMultiply;
+    if (poly1 == poly2){
+        cout << "Fractions are equal" << endl;
+    }else{
+        cout << "Fractions are not equal" << endl;
     }
-    cout << ") / (";
-    for (int i = resultMultiplyDen.size() - 1; i >= 0; --i) {
-        if (resultMultiplyDen[i] != 0) {
-            if (i < resultMultiplyDen.size() - 1) {
-                if (resultMultiplyDen[i] > 0)
-                    cout << " + ";
-                else
-                    cout << " - ";
-            }
-            int coeff = abs(resultMultiplyDen[i]);
-            if (i > 0) {
-                if (coeff == 1) {
-                    cout << "x^" << i;
-                } else if (i == 1) {
-                    cout << coeff << "x";
-                } else {
-                    cout << coeff << "x^" << i;
-                }
-            } else {
-                cout << coeff;
-            }
-        }
-    }
-    cout << ")" << endl;
-    // Outputting the result of comparing two polynomial fractional
-    // expressions
-    if (poly1 == poly2) {
-        cout << "Fraction 1 is equal to fraction 2";
-    } else {
-        cout << "Fraction 1 is not equal to fraction 2";
+    if(!(poly1 != poly2)){
+        cout << "Fractions are equal" << endl;
+    }else{
+        cout << "Fractions are not equal" << endl;
     }
     return 0;
 }
